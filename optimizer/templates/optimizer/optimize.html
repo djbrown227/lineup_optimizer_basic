@@ -4,22 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optimize DFS Lineups</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="file"],
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input[type="file"] {
+            padding: 12px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Optimize Your DFS Lineups</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="csv_file">Upload CSV File:</label>
-        <input type="file" name="csv_file" id="csv_file" required><br><br>
+        
+        <div class="form-group">
+            <label for="csv_file">Upload CSV File:</label>
+            <input type="file" name="csv_file" id="csv_file" required>
+        </div>
 
-        <label for="sport">Select Sport:</label>
-        {{ form.sport }}<br><br>
+        <div class="form-group">
+            <label for="sport">Select Sport:</label>
+            {{ form.sport }}
+        </div>
 
-        <label for="site">Select Site:</label>
-        {{ form.site }}<br><br>
+        <div class="form-group">
+            <label for="site">Select Site:</label>
+            {{ form.site }}
+        </div>
 
-        <label for="num_lineups">Number of Lineups:</label>
-        {{ form.num_lineups }}<br><br>
+        <div class="form-group">
+            <label for="num_lineups">Number of Lineups:</label>
+            {{ form.num_lineups }}
+        </div>
 
         <button type="submit">Optimize</button>
     </form>
