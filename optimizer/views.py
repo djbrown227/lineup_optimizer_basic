@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from .forms import CSVUploadForm
 from pydfs_lineup_optimizer import get_optimizer, Site, Sport
+import os
 
 def optimize(request):
     if request.method == 'POST':
@@ -31,12 +32,26 @@ def optimize(request):
                 for lineup in optimizer.optimize(n=num_lineups)
             ]
 
-            return render(request, 'optimizer/results.html', {'lineups': lineups})
+            # Generate a CSV for download
+            output_csv_path = '/tmp/optimized_lineups.csv'
+            optimizer.export(output_csv_path)
+
+            return render(request, 'optimizer/results.html', {
+                'lineups': lineups,
+                'csv_download_path': output_csv_path
+            })
 
     else:
         form = CSVUploadForm()
 
     return render(request, 'optimizer/optimize.html', {'form': form})
+
+
+def download_csv(request):
+    file_path = request.GET.get('file_path')
+    if file_path and os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='optimized_lineups.csv')
+    return HttpResponse("File not found.", status=404)
 
 
 def results(request):
