@@ -1,3 +1,5 @@
+import io
+import sys
 from django.shortcuts import render
 from django.http import HttpResponse, FileResponse
 from .forms import CSVUploadForm
@@ -31,14 +33,29 @@ def optimize(request):
                 }
                 for lineup in optimizer.optimize(n=num_lineups)
             ]
-
+            
             # Generate a CSV for download
             output_csv_path = '/tmp/optimized_lineups.csv'
             optimizer.export(output_csv_path)
 
+            # Capture player pick statistics
+            old_stdout = sys.stdout  # Save the current stdout
+            new_stdout = io.StringIO()  # Create a new StringIO object to capture print statements
+            sys.stdout = new_stdout  # Redirect stdout to the StringIO object
+
+            # Print player pick statistics
+            optimizer.print_statistic()
+
+            # Capture the printed statistics from the optimizer
+            player_statistics = new_stdout.getvalue()
+
+            # Reset stdout back to normal
+            sys.stdout = old_stdout
+
             return render(request, 'optimizer/results.html', {
                 'lineups': lineups,
-                'csv_download_path': output_csv_path
+                'csv_download_path': output_csv_path,
+                'player_statistics': player_statistics
             })
 
     else:
@@ -46,13 +63,11 @@ def optimize(request):
 
     return render(request, 'optimizer/optimize.html', {'form': form})
 
-
 def download_csv(request):
     file_path = request.GET.get('file_path')
     if file_path and os.path.exists(file_path):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='optimized_lineups.csv')
     return HttpResponse("File not found.", status=404)
-
 
 def results(request):
     """

@@ -23,6 +23,11 @@
         <a href="{% url 'download_csv' %}?file_path={{ csv_download_path }}" download>
             <button type="button">Download CSV</button>
         </a>
+
+        <!-- Display Player Pick Statistics -->
+        <h2>Player Pick Statistics</h2>
+        <pre>{{ player_statistics }}</pre>
+
     {% else %}
         <p>No lineups generated.</p>
     {% endif %}
