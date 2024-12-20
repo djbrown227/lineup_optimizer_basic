@@ -1,4 +1,3 @@
-<!-- optimizer/templates/optimizer/optimize.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,16 @@
         {% csrf_token %}
         <label for="csv_file">Upload CSV File:</label>
         <input type="file" name="csv_file" id="csv_file" required><br><br>
+
+        <label for="sport">Select Sport:</label>
+        {{ form.sport }}<br><br>
+
+        <label for="site">Select Site:</label>
+        {{ form.site }}<br><br>
+
+        <label for="num_lineups">Number of Lineups:</label>
+        {{ form.num_lineups }}<br><br>
+
         <button type="submit">Optimize</button>
     </form>
 </body>
