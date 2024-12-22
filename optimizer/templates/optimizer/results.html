@@ -4,32 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Optimization Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 28px;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #4CAF50;
+            margin: 10px auto 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .lineup-card {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dce0e5;
+            border-radius: 6px;
+            background-color: #f4f7fc;
+        }
+
+        .lineup-card strong {
+            color: #2c3e50;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #dce0e5;
+            margin: 15px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 15px 0;
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            border: 1px solid #dce0e5;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: 700;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Optimization Results</h1>
-    {% if lineups %}
-        <ul>
+    <div class="container">
+        {% if lineups %}
+            <h2>Generated Lineups</h2>
             {% for lineup in lineups %}
-                <li>
-                    <strong>Lineup:</strong> {{ lineup.lineup }}<br>
-                    <strong>Players:</strong> {{ lineup.players|join:", " }}<br>
-                    <strong>Fantasy Points:</strong> {{ lineup.fantasy_points }}<br>
-                    <strong>Salary:</strong> {{ lineup.salary }}<br>
-                </li>
-                <hr>
+                <div class="lineup-card">
+                    <p><strong>Lineup:</strong> {{ lineup.lineup }}</p>
+                    <p><strong>Players:</strong> {{ lineup.players|join:", " }}</p>
+                    <p><strong>Fantasy Points:</strong> {{ lineup.fantasy_points }}</p>
+                    <p><strong>Salary:</strong> {{ lineup.salary }}</p>
+                </div>
             {% endfor %}
-        </ul>
-        <!-- Download CSV File Link -->
-        <a href="{% url 'download_csv' %}?file_path={{ csv_download_path }}" download>
-            <button type="button">Download CSV</button>
-        </a>
+            <a href="{% url 'download_csv' %}?file_path={{ csv_download_path }}" download>
+                <button type="button">Download CSV</button>
+            </a>
 
-        <!-- Display Player Pick Statistics -->
-        <h2>Player Pick Statistics</h2>
-        <pre>{{ player_statistics }}</pre>
-
-    {% else %}
-        <p>No lineups generated.</p>
-    {% endif %}
+            <h2>Player Pick Statistics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Pick Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ player_statistics|safe }}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No lineups generated.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
