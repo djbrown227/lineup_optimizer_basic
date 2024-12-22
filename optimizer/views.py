@@ -3,7 +3,7 @@ import sys
 from django.shortcuts import render
 from django.http import HttpResponse, FileResponse
 from .forms import CSVUploadForm
-from pydfs_lineup_optimizer import get_optimizer, Site, Sport
+from pydfs_lineup_optimizer import get_optimizer, Site, Sport, Player
 import os
 
 def optimize(request):
@@ -15,6 +15,14 @@ def optimize(request):
             site = form.cleaned_data['site']
             num_lineups = form.cleaned_data['num_lineups']
 
+            # Get min and max exposure values from the form
+            min_exposure = request.POST.get('min_exposure', 0)
+            max_exposure = request.POST.get('max_exposure', 100)
+
+            # Convert exposure values to floats
+            min_exposure = float(min_exposure)
+            max_exposure = float(max_exposure)
+
             # Save the uploaded file to a temporary location
             csv_path = f'/tmp/{csv_file.name}'
             with open(csv_path, 'wb+') as destination:
@@ -24,6 +32,13 @@ def optimize(request):
             # Use pydfs_lineup_optimizer to generate lineups
             optimizer = get_optimizer(getattr(Site, site), getattr(Sport, sport))
             optimizer.load_players_from_csv(csv_path)
+
+            # Set min and max exposure constraints for each player
+            for player in optimizer.players:
+                player.min_exposure = min_exposure / 100  # Convert to fraction
+                player.max_exposure = max_exposure / 100  # Convert to fraction
+
+            # Generate lineups
             lineups = [
                 {
                     'lineup': str(lineup),
@@ -33,7 +48,7 @@ def optimize(request):
                 }
                 for lineup in optimizer.optimize(n=num_lineups)
             ]
-            
+
             # Generate a CSV for download
             output_csv_path = '/tmp/optimized_lineups.csv'
             optimizer.export(output_csv_path)

@@ -111,6 +111,16 @@
             {{ form.num_lineups }}
         </div>
 
+        <div class="form-group">
+            <label for="min_exposure">Minimum Exposure (%):</label>
+            <input type="number" name="min_exposure" id="min_exposure" min="0" max="100" value="0" required>
+        </div>
+
+        <div class="form-group">
+            <label for="max_exposure">Maximum Exposure (%):</label>
+            <input type="number" name="max_exposure" id="max_exposure" min="0" max="100" value="100" required>
+        </div>
+
         <button type="submit">Optimize</button>
     </form>
 </body>
