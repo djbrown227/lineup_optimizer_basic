@@ -2,11 +2,18 @@
 
 Welcome to **Lineup Optimizer Basic** — a simple, locally run fantasy sports lineup optimizer built with Django and the `pydfs-lineup-optimizer` library.
 
+## 🎥 Demo Video
+
+Want to see it in action? Here's a short walkthrough:
+
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/1UK4ewB5ItY" title="Lineup Optimizer Demo" frameborder="0" allowfullscreen></iframe>
+
 ## 🎯 Why I Built This
 
 Most lineup optimizers for fantasy sports platforms like **DraftKings**, **FanDuel**, and **Yahoo Fantasy** are locked behind expensive monthly subscriptions. I built this — along with other versions — for people who wanted a **free**, **private**, and **fully controllable** tool they could run on their own machine.
 
 Whether you're a casual DFS player or a data-savvy fantasy sports strategist, this tool gives you everything you need to generate optimized lineups — no paywalls, no limits.
+
 
 ## 💡 What This Tool Does
 
