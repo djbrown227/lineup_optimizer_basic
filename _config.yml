@@ -1,0 +1,5 @@
+# Site settings
+title: DFS Lineup Optimizer
+description: Local and Customizable Lineup Optimizer
+# Theme for styling
+theme: jekyll-theme-cayman  # A clean, single-page Jekyll theme

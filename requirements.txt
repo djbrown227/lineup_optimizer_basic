@@ -1,0 +1,10 @@
+amply==0.1.6
+asgiref==3.8.1
+Django==4.2.21
+docutils==0.21.2
+PuLP==2.4
+pydfs-lineup-optimizer==3.6.1
+pyparsing==3.2.3
+pytz==2025.2
+sqlparse==0.5.3
+typing_extensions==4.13.2
