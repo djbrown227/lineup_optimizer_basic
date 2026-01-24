@@ -2,4 +2,4 @@
 title: DFS Lineup Optimizer
 description: Local and Customizable Lineup Optimizer
 # Theme for styling
-theme: jekyll-theme-cayman  # A clean, single-page Jekyll theme
+theme: minima # A clean, single-page Jekyll theme
