@@ -1,3 +1,8 @@
+---
+layout: default
+title: DFS Lineup Optimizer
+---
+
 # Local Fantasy Sports Lineup Optimizer  
 **One-Time Purchase • Fully Local • Client-Owned Code**
 
